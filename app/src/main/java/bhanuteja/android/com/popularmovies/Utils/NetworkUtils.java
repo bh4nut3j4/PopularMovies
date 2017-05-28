@@ -21,7 +21,7 @@ public class NetworkUtils {
     private static final String languagevalue="en-US";
     private static final String page="page";
     private static final String pagevalue ="1";
-    private static final String key ="MOVIE_DB_API_KEY";
+    private static final String key ="YOUR_MOVIEDB_API_KEY";
 
     public URL buildURL(int id){
         URL url = null;

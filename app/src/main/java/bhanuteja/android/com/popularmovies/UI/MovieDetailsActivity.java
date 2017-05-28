@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,17 +18,20 @@ import java.io.IOException;
 import java.net.URL;
 
 import bhanuteja.android.com.popularmovies.R;
+import bhanuteja.android.com.popularmovies.Utils.Connection;
 import bhanuteja.android.com.popularmovies.Utils.Movies_JsonUtil;
 import bhanuteja.android.com.popularmovies.Utils.NetworkUtils;
 
-public class Movie_Details extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
     NetworkUtils utils;
     String MovieID;
     TextView movie_name,movie_synopsis,movie_rating,movie_date,nodetails;
     ImageView poster;
-    String movie_poster_url;
+    static String movie_poster_url;
     LinearLayout linearLayout;
     ProgressBar progressBar;
+    private static final String movieNameKey="mNK",movieUrlKey="mUK",movieSynopsisKey="mSK",movieRatingKey="mRK",movieDateKey = "mDK";
+    Connection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,32 @@ public class Movie_Details extends AppCompatActivity {
         poster = (ImageView) findViewById(R.id.movie_details_poster);
         linearLayout= (LinearLayout) findViewById(R.id.linear_layout);
         progressBar = (ProgressBar) findViewById(R.id.progess_bar);
-        StartFetching();
+        connection = new Connection(this);
+        if (connection.isInternet()){
+            if (savedInstanceState!=null){
+                movie_name.setText(savedInstanceState.getString(movieNameKey));
+                Picasso.with(getApplicationContext()).load(savedInstanceState.getString(movieUrlKey)).placeholder(R.drawable.placeholder).into(poster);
+                movie_synopsis.setText(savedInstanceState.getString(movieSynopsisKey));
+                movie_rating.setText(savedInstanceState.getString(movieRatingKey));
+                movie_date.setText(savedInstanceState.getString(movieDateKey));
+            }else {
+                StartFetching();
+            }
+        }else {
+            Toast.makeText(getApplicationContext(),R.string.no_internet,Toast.LENGTH_SHORT).show();
+            nodetails.setVisibility(View.VISIBLE);
+        }
 
+
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(movieNameKey,movie_name.getText().toString());
+        outState.putString(movieUrlKey,movie_poster_url);
+        outState.putString(movieSynopsisKey,movie_synopsis.getText().toString());
+        outState.putString(movieRatingKey,movie_rating.getText().toString());
+        outState.putString(movieDateKey,movie_date.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
     private void StartFetching(){
@@ -64,13 +92,10 @@ public class Movie_Details extends AppCompatActivity {
         protected String doInBackground(URL... params) {
             URL url = params[0];
             try {
-                String jsondata = utils.GetDetailsJson(url);
-                return jsondata;
+                return utils.GetDetailsJson(url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return null;
         }
 
@@ -86,7 +111,7 @@ public class Movie_Details extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(json);
                 movie_name.setText(jsonObject.getString(Movies_JsonUtil.Movie_Title));
                 movie_poster_url = Movies_JsonUtil.POSTER_BASE_URL+jsonObject.getString(Movies_JsonUtil.POSTER_URL_NAME);
-                Picasso.with(getApplicationContext()).load(movie_poster_url).into(poster);
+                Picasso.with(getApplicationContext()).load(movie_poster_url).placeholder(R.drawable.placeholder).into(poster);
                 movie_synopsis.setText(jsonObject.getString(Movies_JsonUtil.Movie_Synopsis));
                 movie_rating.setText(jsonObject.getString(Movies_JsonUtil.Movie_User_Rating));
                 movie_date.setText(jsonObject.getString(Movies_JsonUtil.Movie_Release_Date));
