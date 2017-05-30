@@ -3,7 +3,7 @@
     package="bhanuteja.android.com.popularmovies">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,15 +12,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.HomeActivity">
+        <activity
+            android:name=".ui.Activities.HomeActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.MovieDetailsActivity"
-            android:parentActivityName=".UI.HomeActivity"></activity>
+        <activity
+            android:name=".ui.Activities.MovieDetailsActivity"
+            android:parentActivityName=".ui.Activities.HomeActivity" />
+
+        <provider
+            android:name=".data.MoviesContentProvider"
+            android:authorities="bhanuteja.android.com.popularmovies"
+            android:exported="false" />
+
+        <activity android:name=".ui.Activities.FavoritesActivity"
+            android:label="@string/FavoritesActivity"
+            android:parentActivityName=".ui.Activities.HomeActivity">
+
+        </activity>
     </application>
 
 </manifest>

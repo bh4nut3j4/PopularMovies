@@ -1,4 +1,4 @@
-package bhanuteja.android.com.popularmovies.Utils;
+package bhanuteja.android.com.popularmovies.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

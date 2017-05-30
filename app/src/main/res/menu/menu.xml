@@ -2,10 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/most_popular"
-        android:title="Sort by Most Popular"
-        android:orderInCategory="2"/>
+        android:orderInCategory="2"
+        android:title="Sort by Most Popular" />
     <item
         android:id="@+id/top_rated"
-        android:title="Sort by Top Rated"
-        android:orderInCategory="1"/>
+        android:orderInCategory="1"
+        android:title="Sort by Top Rated" />
+    <item
+        android:id="@+id/favorites"
+        android:orderInCategory="3"
+        android:title="Favorites" />
 </menu>

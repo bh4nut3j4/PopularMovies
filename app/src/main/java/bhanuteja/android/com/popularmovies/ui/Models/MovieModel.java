@@ -1,4 +1,4 @@
-package bhanuteja.android.com.popularmovies.UI;
+package bhanuteja.android.com.popularmovies.ui.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

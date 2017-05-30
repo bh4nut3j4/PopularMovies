@@ -2,5 +2,21 @@
     <string name="app_name">Popular Movies</string>
     <string name="nodetailsfound">No Details Found !</string>
     <string name="no_internet">No Internet</string>
+    <string name="add_to_fav">Mark as favorite</string>
+    <string name="movie_name">MOVIE NAME</string>
+    <string name="synposis">SYNOPSIS</string>
+    <string name="synposiscontent">SYNOPSIS CONTENT</string>
+    <string name="userrating">USER-RATING :</string>
+    <string name="releasedate">RELEASE DATE :</string>
+    <string name="date">DATE</string>
+    <string name="trailers">&#60;&#60;&#32;&#32;&#32;&#32;&#32;TRAILERS&#32;&#32;&#32;&#32;&#32;&#62;&#62;</string>
+    <string name="reviews">&#60;&#60;&#32;&#32;&#32;&#32;&#32;REVIEWS&#32;&#32;&#32;&#32;&#32;&#62;&#62;</string>
+    <string name="notavailable">NOT AVAILABLE</string>
+
+    <!-- reviews model-->
+    <string name="author">Author</string>
+    <string name="FavoritesActivity">Favorite Movies</string>
+
+    <string name="swipetodelete">Swipe to remove</string>
 
 </resources>

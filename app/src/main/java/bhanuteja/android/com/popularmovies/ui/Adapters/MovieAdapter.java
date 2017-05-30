@@ -1,4 +1,4 @@
-package bhanuteja.android.com.popularmovies.UI;
+package bhanuteja.android.com.popularmovies.ui.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import bhanuteja.android.com.popularmovies.R;
-import bhanuteja.android.com.popularmovies.Utils.Movies_JsonUtil;
+import bhanuteja.android.com.popularmovies.ui.Activities.MovieDetailsActivity;
+import bhanuteja.android.com.popularmovies.ui.Models.MovieModel;
+import bhanuteja.android.com.popularmovies.utils.MoviesJsonUtil;
 
 /**
  * Created by root on 5/26/17.
@@ -40,7 +42,7 @@ public  class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Movie_ViewH
     public void onBindViewHolder(Movie_ViewHolder holder, int position) {
         MovieModel movie_model = models.get(position);
         holder.id.setText(movie_model.getMovieID());
-        Picasso.with(context).load(movie_model.getPosterUrl()).placeholder(R.drawable.placeholder).into(holder.poster);
+        Picasso.with(context).load(movie_model.getPosterUrl()).placeholder(R.drawable.image_placeholder).into(holder.poster);
     }
 
     @Override
@@ -64,7 +66,7 @@ public  class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Movie_ViewH
              TextView ID= (TextView) v.findViewById(R.id.movie_id);
              String movieid = ID.getText().toString();
              Intent intent = new Intent(v.getContext(),MovieDetailsActivity.class);
-             intent.putExtra(Movies_JsonUtil.MOVIE_ID,movieid);
+             intent.putExtra(MoviesJsonUtil.MOVIE_ID,movieid);
              v.getContext().startActivity(intent);
          }
      }

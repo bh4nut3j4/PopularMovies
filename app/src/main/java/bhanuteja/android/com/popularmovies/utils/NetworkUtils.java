@@ -1,4 +1,4 @@
-package bhanuteja.android.com.popularmovies.Utils;
+package bhanuteja.android.com.popularmovies.utils;
 
 import android.net.Uri;
 
@@ -21,7 +21,11 @@ public class NetworkUtils {
     private static final String languagevalue="en-US";
     private static final String page="page";
     private static final String pagevalue ="1";
-    private static final String key ="YOUR_MOVIEDB_API_KEY";
+    private static final String key ="YOUR_MOVIEDB_APPI_KEY";
+
+    private static final String TRAILERS_PATH="videos";
+    private static final String REVIEWS_PATH="reviews";
+
 
     public URL buildURL(int id){
         URL url = null;
@@ -38,10 +42,31 @@ public class NetworkUtils {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        }else if (id==1){
+        }else if (id==1) {
             Uri uri = Uri.parse(BASE_URL).buildUpon()
                     .appendPath(TOP_RATED_PATH)
                     .appendQueryParameter(APIKEY, key)
+                    .appendQueryParameter(language, languagevalue)
+                    .appendQueryParameter(page, pagevalue)
+                    .build();
+            try {
+                url = new URL(uri.toString());
+                return url;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+
+    public URL getURLS(int id,String movieid){
+        URL url=null;
+        if (id==0){
+            Uri uri = Uri.parse(BASE_URL).buildUpon()
+                    .appendPath(movieid)
+                    .appendQueryParameter(APIKEY,key)
                     .appendQueryParameter(language,languagevalue)
                     .appendQueryParameter(page,pagevalue)
                     .build();
@@ -49,6 +74,37 @@ public class NetworkUtils {
                 url = new URL(uri.toString());
                 return url;
             }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+        if (id==1){
+            Uri uri = Uri.parse(BASE_URL).buildUpon()
+                    .appendPath(movieid)
+                    .appendPath(TRAILERS_PATH)
+                    .appendQueryParameter(APIKEY, key)
+                    .appendQueryParameter(language, languagevalue)
+                    .appendQueryParameter(page, pagevalue)
+                    .build();
+            try {
+                url = new URL(uri.toString());
+                return url;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else if (id==2){
+            Uri uri = Uri.parse(BASE_URL).buildUpon()
+                    .appendPath(movieid)
+                    .appendPath(REVIEWS_PATH)
+                    .appendQueryParameter(APIKEY, key)
+                    .appendQueryParameter(language, languagevalue)
+                    .appendQueryParameter(page, pagevalue)
+                    .build();
+            try {
+                url = new URL(uri.toString());
+                return url;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -72,22 +128,6 @@ public class NetworkUtils {
         }
     }
 
-    public URL build_Details_Url(String movieid){
-        URL url = null;
-        Uri uri = Uri.parse(BASE_URL).buildUpon()
-                .appendPath(movieid)
-                .appendQueryParameter(APIKEY,key)
-                .appendQueryParameter(language,languagevalue)
-                .appendQueryParameter(page,pagevalue)
-                .build();
-        try {
-            url = new URL(uri.toString());
-            return url;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public String GetDetailsJson(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
